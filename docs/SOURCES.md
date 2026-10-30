@@ -1,0 +1,31 @@
+# Dated source registry
+
+Machine-readable records: [source-registry.json](../source-registry.json), reviewed 2026-10-30. This catalog is a reading list and integration decision record. It is separate from runtime evidence snapshots and **has no strategy weight**. Only the fixed Coinbase/Kraken BTC/USD public GET collector is enabled. All other provider/X adapters are disabled or absent; see [LIVE.md](LIVE.md).
+
+## Identity references admitted for methodology reading
+
+- Chris Burniske and Joel Monegro: the [official Placeholder site](https://www.placeholder.vc/) identifies their partner roles and links their social identities. The listed destinations map to `cburniske` and `jmonegro`; direct social-page access was unavailable. [Placeholder's thesis](https://www.placeholder.vc/blog/2018/2/13/thesis-summary) is firm context; Monegro's dated [Fat Protocols](https://www.usv.com/writing/2016/08/fat-protocols/) is a historical value-capture hypothesis, not a current position.
+- Dan Robinson: [Paradigm's official profile](https://www.paradigm.xyz/team/dan-robinson) identifies his research role and links `danrobinson`. [Ethereum is a Dark Forest](https://www.paradigm.xyz/2020/08/ethereum-is-a-dark-forest) supplies a dated security/mechanism case study.
+- Arthur Hayes: [Maelstrom's team page](https://maelstrom.fund/team/) establishes his role; its [official annual report](https://maelstrom.fund/wp-content/uploads/2026/06/Maelstrom-Bitcoin-Grant-Program-Annual-Report-1.pdf) identifies `CryptoHayes`. The [official essay index](https://maelstrom.fund/media/) is a candidate macro reading source; precise claims still require a dated essay and conflict review.
+
+These entries include commercial affiliations and explicitly unknown personal holdings/sponsorship details. Admission means the cited identity/publication chain was checked, not that all conflicts are known or any investment recommendation is endorsed. Two Placeholder authors are correlated context, not two independent votes. No claims about current holdings, agreement, buy decisions or investment returns are generated.
+
+Hasu remains disabled: historical self-published material was found, but current official role/social mapping was not established. CryptoCred and DonAlt remain disabled: the candidate domain redirected to a channel, but this review did not establish the complete official personal identity/social/methodology chain. No handle was guessed from third-party rankings. **X ingestion is disabled for everyone.**
+
+## Security and skeptical counter-evidence
+
+[Trail of Bits public reports](https://trailofbits.com/reports/) provide scoped security findings, not timeless assurances; auditor incentives and the audited code/version matter. [L2BEAT risk analysis](https://l2beat.com/scaling/risk) supplies a distinct dependency/governance perspective. [BIS ecosystem research](https://www.bis.org/publications/crypto-ecosystem-key-elements-and-risks) offers a skeptical structural-risk perspective with its institutional policy context. No consensus among popular commentators overrides security/liquidity vetoes.
+
+## Data candidates and access
+
+The registry records reference URLs, publisher/upstream, date, hash scope, coverage, terms, costs, failure mode, review expiry and adapter state. Hashes cover retrieved tool-rendered reference text, not publisher signatures or original HTTP bytes. Missing publication/availability facts remain null; review time is not substituted for them.
+
+- Direct spot: [Coinbase L2 book](https://docs.cdp.coinbase.com/exchange/reference/exchangerestapi_getproductbook) and [Kraken depth](https://docs.kraken.com/api/docs/rest-api/get-order-book/) are distinct venue candidates. Actual asset/pair mapping, constraint metadata, limits, outages and applicable data rights must be checked before collection. Coinbase's [market-data terms](https://www.coinbase.com/legal/market_data) are not blanket dataset redistribution permission. Kraken terms/redistribution acceptance is unresolved and blocks shipping an adapter.
+- [CoinGecko docs](https://docs.coingecko.com/reference/introduction) and [API terms](https://www.coingecko.com/en/api_terms): applicable plan/key and endpoint coverage matter. Aggregate identity/price records do not create independent venue evidence. No licensed dataset is bundled.
+- [DefiLlama definitions](https://defillama.com/data-definitions) distinguish TVL, fees, protocol revenue and holder revenue. Some volume/FDV fields explicitly use CoinGecko upstream; do not double-count them. [API documentation](https://api-docs.defillama.com/) separates free and Pro families.
+- [Coin Metrics API v4](https://docs.coinmetrics.io/api/v4/): community endpoints do not require a key and have limited metrics and rate limits; Pro is separate. Confirm the precise community-data license and attribution before redistributing observations. No data copied here.
+- [Ethereum JSON-RPC](https://ethereum.org/en/developers/docs/apis/json-rpc/), [vesting-contract mechanics](https://docs.openzeppelin.com/contracts/5.x/api/finance), protocol governance and official deployed-contract records are candidate primary evidence, not substitutes for tracing a specific deployment. [Circle disclosures](https://www.circle.com/transparency) are issuer attestation references; not a real-time redemption guarantee. No reserve dataset or contract snapshot is included.
+- Optional [Dune](https://docs.dune.com/api-reference/overview/introduction) requires account/key and plan/credit review. [Token Terminal](https://tokenterminal.com/pricing) distinguishes free viewing from paid API access. [Glassnode](https://docs.glassnode.com/basic-api/api) documents Professional plus API add-on. [Nansen API](https://www.nansen.ai/api) requires separately reviewed access/costs. No exact budget or universal free-data promise is made.
+- Derivatives funding/OI/liquidations are excluded; no provider, entitlement or adapter is admitted. Unavailable analytics remain unavailable.
+
+Review references expire after 30 days, not market data: runtime market/review evidence uses much shorter fixed limits. The reading registry is manually maintained and not a live compliance monitor. Do not present reference selection as a ranking of the best traders.

@@ -1,0 +1,582 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "asset": {
+      "$ref": "#/$defs/asset"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "maxItems": 40
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    }
+  },
+  "required": [
+    "schema_version",
+    "synthetic",
+    "asset",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Floatglass local crypto evidence snapshot v1",
+  "description": "Structural documentation. Python performs semantic validation; a structurally valid snapshot can be BLOCKED. No external validator dependency is needed.",
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "properties": {
+        "chain_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]{2,32}:[A-Za-z0-9-]{1,64}$"
+        },
+        "asset_id": {
+          "type": "string",
+          "pattern": "^(native|erc20|token):[A-Za-z0-9._-]{1,100}$"
+        },
+        "symbol": {
+          "type": "string",
+          "pattern": "^[A-Z0-9._-]{1,20}$"
+        },
+        "decimals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 36
+        },
+        "representation": {
+          "enum": [
+            "native",
+            "canonical",
+            "wrapped",
+            "bridged",
+            "liquid_staked"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "provider_ids": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      },
+      "required": [
+        "chain_id",
+        "asset_id",
+        "symbol",
+        "decimals",
+        "representation",
+        "category",
+        "provider_ids"
+      ],
+      "additionalProperties": true
+    },
+    "quote": {
+      "type": "object",
+      "properties": {
+        "asset_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "kind": {
+          "enum": [
+            "fiat",
+            "stablecoin"
+          ]
+        },
+        "usd_rate": {
+          "type": "string",
+          "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+        },
+        "depeg": {
+          "type": "boolean"
+        },
+        "issuer_risk_reviewed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "asset_key",
+        "symbol",
+        "kind",
+        "usd_rate",
+        "depeg",
+        "issuer_risk_reviewed"
+      ],
+      "additionalProperties": true
+    },
+    "bar": {
+      "type": "object",
+      "properties": {
+        "open_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "close_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "available_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "o": {
+          "type": "string",
+          "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+        },
+        "h": {
+          "type": "string",
+          "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+        },
+        "l": {
+          "type": "string",
+          "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+        },
+        "c": {
+          "type": "string",
+          "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+        },
+        "v": {
+          "type": "string",
+          "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+        }
+      },
+      "required": [
+        "open_at",
+        "close_at",
+        "available_at",
+        "complete",
+        "o",
+        "h",
+        "l",
+        "c",
+        "v"
+      ],
+      "additionalProperties": true
+    },
+    "market": {
+      "type": "object",
+      "properties": {
+        "asset_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "decimals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 36
+        },
+        "representation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "venue": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "instrument": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "quote": {
+          "type": "object",
+          "properties": {
+            "asset_key": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "symbol": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "kind": {
+              "enum": [
+                "fiat",
+                "stablecoin"
+              ]
+            },
+            "usd_rate": {
+              "type": "string",
+              "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+            },
+            "depeg": {
+              "type": "boolean"
+            },
+            "issuer_risk_reviewed": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "asset_key",
+            "symbol",
+            "kind",
+            "usd_rate",
+            "depeg",
+            "issuer_risk_reviewed"
+          ],
+          "additionalProperties": true
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "price_tick": {
+              "type": "string",
+              "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+            },
+            "lot_step": {
+              "type": "string",
+              "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+            },
+            "min_notional": {
+              "type": "string",
+              "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+            }
+          },
+          "required": [
+            "price_tick",
+            "lot_step",
+            "min_notional"
+          ],
+          "additionalProperties": true
+        },
+        "bids": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              },
+              {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 1,
+          "maxItems": 4000
+        },
+        "asks": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              },
+              {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 1,
+          "maxItems": 4000
+        },
+        "bars": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "open_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "close_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "available_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "complete": {
+                "type": "boolean"
+              },
+              "o": {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              },
+              "h": {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              },
+              "l": {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              },
+              "c": {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              },
+              "v": {
+                "type": "string",
+                "pattern": "^\\d{1,30}(?:\\.\\d{1,18})?$"
+              }
+            },
+            "required": [
+              "open_at",
+              "close_at",
+              "available_at",
+              "complete",
+              "o",
+              "h",
+              "l",
+              "c",
+              "v"
+            ],
+            "additionalProperties": true
+          },
+          "minItems": 1,
+          "maxItems": 4000
+        }
+      },
+      "required": [
+        "asset_key",
+        "decimals",
+        "representation",
+        "venue",
+        "instrument",
+        "status",
+        "quote",
+        "constraints",
+        "bids",
+        "asks",
+        "bars"
+      ],
+      "additionalProperties": true
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "asset_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "lens": {
+          "enum": [
+            "economics",
+            "supply",
+            "security",
+            "adoption",
+            "macro"
+          ]
+        },
+        "assessment": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "opposing_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "maxItems": 4000
+        },
+        "facts": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "asset_key",
+        "lens",
+        "assessment",
+        "method",
+        "opposing_evidence",
+        "facts"
+      ],
+      "additionalProperties": true
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "role": {
+          "enum": [
+            "market",
+            "review"
+          ]
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "upstreams": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "minItems": 1,
+          "maxItems": 100
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "published_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "available_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verification": {
+          "enum": [
+            "synthetic",
+            "operator_attested"
+          ]
+        },
+        "units": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "coverage": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "redistribution": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "method_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "payload": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "publisher",
+        "upstreams",
+        "url",
+        "observed_at",
+        "published_at",
+        "available_at",
+        "retrieved_at",
+        "verification",
+        "units",
+        "coverage",
+        "redistribution",
+        "method_version",
+        "content_sha256",
+        "payload"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "market"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "$ref": "#/$defs/market"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "const": "review"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "payload": {
+                "$ref": "#/$defs/review"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

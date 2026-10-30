@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+demo-output/
+research-output/
+local-inputs/
+*.zip
+*.log
+live-output/
