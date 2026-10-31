@@ -64,6 +64,9 @@ def check(root,private_terms=()):
         p=root/name
         if not p.is_file(): errors.append('missing_file:'+name); continue
         if name!='RELEASE_FILES.json' and sha(p)!=manifest['files'].get(name): errors.append('hash_mismatch:'+name)
+        if name=='assets/sophia-banner.png':
+            if not p.read_bytes().startswith(b'\x89PNG\r\n\x1a\n'): errors.append('invalid_png:'+name)
+            continue
         try: body=p.read_text(encoding='utf-8')
         except UnicodeError: errors.append('binary_file:'+name); continue
         if '\x00' in body: errors.append('binary_file:'+name)

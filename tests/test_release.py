@@ -31,6 +31,19 @@ class ReleaseTests(unittest.TestCase):
             self.assertTrue(any('hash_mismatch' in v for v in release.check(root)))
             (root/'unexpected.txt').write_text('surprise')
             self.assertTrue(any('unlisted_file' in v for v in release.check(root)))
+    def test_banner_is_hashed_and_other_binary_files_are_rejected(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td); (root/'assets').mkdir()
+            banner=root/'assets'/'sophia-banner.png'; banner.write_bytes(b'\x89PNG\r\n\x1a\nexample')
+            (root/'other.bin').write_bytes(b'\x00binary')
+            (root/'ALLOWLIST.json').write_text(json.dumps(['assets/sophia-banner.png','other.bin','ALLOWLIST.json','RELEASE_FILES.json']))
+            release.make_manifest(root)
+            errors=release.check(root)
+            self.assertNotIn('binary_file:assets/sophia-banner.png',errors)
+            self.assertIn('binary_file:other.bin',errors)
+            banner.write_bytes(b'altered')
+            self.assertIn('hash_mismatch:assets/sophia-banner.png',release.check(root))
+
     def test_symlink_rejected(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td); (root/'outside').write_text('safe'); (root/'README.md').symlink_to(root/'outside')
