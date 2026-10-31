@@ -14,13 +14,13 @@ local snapshot JSON
 
 ## File responsibilities
 
-- `floatglass/live.py`: opt-in fixed public BTC/USD GET capture, separated from the offline evaluator.
-- `floatglass/contracts.py`: bounded JSON parsing, exact numeric and time primitives, canonical hashes and asset identity.
-- `floatglass/core.py`: fixed versioned policy, evidence eligibility, disjoint lineage, market and candle validation, final qualification.
-- `floatglass/lenses.py`: five neutral domain reviews and derived supply context. No person names, votes or consensus scoring.
-- `floatglass/report.py`: local HTML and JSON with per-file atomic replacement. No JavaScript, remote assets or active source navigation.
-- `floatglass/demo.py`: three clearly synthetic scenarios; never a fallback branch in evaluation.
-- `floatglass/__main__.py`: CLI, explicit historical evaluation, current UTC default, bounded error messages.
+- `sophia/live.py`: opt-in fixed public BTC/USD GET capture, separated from the offline evaluator.
+- `sophia/contracts.py`: bounded JSON parsing, exact numeric and time primitives, canonical hashes and asset identity.
+- `sophia/core.py`: fixed versioned policy, evidence eligibility, disjoint lineage, market and candle validation, final qualification.
+- `sophia/lenses.py`: five neutral domain reviews and derived supply context. No person names, votes or consensus scoring.
+- `sophia/report.py`: local HTML and JSON with per-file atomic replacement. No JavaScript, remote assets or active source navigation.
+- `sophia/demo.py`: three clearly synthetic scenarios; never a fallback branch in evaluation.
+- `sophia/__main__.py`: CLI, explicit historical evaluation, current UTC default, bounded error messages.
 - `source-registry.json`: dated human reading references and candidate integration status. It is **not loaded by the scoring engine**.
 - `input.schema.json`: structural documentation; semantic validation remains executable Python.
 - `agent/`, `skills/`, `ops/routines/`: community Grok Bot workflow source. No installed routines or inherited permissions.
@@ -28,7 +28,7 @@ local snapshot JSON
 
 ## Boundaries adapted from the references
 
-REA's inspected [upstream runtime evidence contract](https://github.com/morluto/rea/blob/main/docs/mcp-contracts.md) distinguishes normalized results, coverage, limitations and unknowns. Floatglass uses that evidence-first approach, including explicit unknowns and hash scope. It does not embed REA, register an MCP server, invoke a decompiler or claim REA analysis was performed. The source was already available, so direct read-only source inspection was appropriate.
+REA's inspected [upstream runtime evidence contract](https://github.com/morluto/rea/blob/main/docs/mcp-contracts.md) distinguishes normalized results, coverage, limitations and unknowns. Sophia uses that evidence-first approach, including explicit unknowns and hash scope. It does not embed REA, register an MCP server, invoke a decompiler or claim REA analysis was performed. The source was already available, so direct read-only source inspection was appropriate.
 
 The attached first-principles framing method informed the decision to build a research evidence product with a useful first run. A narrative score alone cannot establish a credible trading system. The legacy research workflow supplies the useful pattern of explicit gates, but the implementation here is newly authored around crypto contracts; no private runtime, history, deployment configuration, investor personas or report assets were copied into this release.
 

@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime,timezone
 try:
-    from floatglass.live import collect, normalize, URLS
+    from sophia.live import collect, normalize, URLS
 except ImportError:
     collect=normalize=None; URLS={}
 
@@ -32,17 +32,17 @@ class LiveTests(unittest.TestCase):
         p=normalize('coinbase',meta,{'bids':[['1','1',1]]*5000,'asks':[['2','1',1]]*5000},[],datetime.now(timezone.utc))
         self.assertEqual(len(p['bids']),100); self.assertEqual(p['book_coverage'],'best 100 levels per side; full response retained in capture receipt')
     def test_unknown_endpoint_rejected_before_network(self):
-        from floatglass.live import fetch_public
+        from sophia.live import fetch_public
         from unittest.mock import patch
         with patch('urllib.request.build_opener',side_effect=AssertionError('Network attempted')):
             with self.assertRaises(KeyError): fetch_public('https://untrusted.invalid/')
     def test_redirects_cannot_escape_allowlist(self):
-        from floatglass.live import NoRedirect
+        from sophia.live import NoRedirect
         with self.assertRaises(ValueError): NoRedirect().redirect_request(None,None,302,'Found',{},'https://untrusted.invalid/')
     def test_two_venue_capture_reaches_research_without_fabricating_reviews(self):
         from support import snapshot, AS_OF
-        from floatglass.core import evaluate
-        from floatglass.contracts import stamp
+        from sophia.core import evaluate
+        from sophia.contracts import stamp
         from datetime import timedelta
         bars=snapshot()['sources'][0]['payload']['bars']
         coinbase_rows=[[int(stamp(b['open_at']).timestamp()),b['l'],b['h'],b['o'],b['c'],b['v']] for b in bars]
@@ -67,7 +67,7 @@ class LiveTests(unittest.TestCase):
         p=normalize('coinbase',meta,{'bids':[],'asks':[]},[],datetime.now(timezone.utc))
         self.assertFalse(p['quote']['issuer_risk_reviewed'])
     def test_component_receipt_future_or_stale_is_rejected(self):
-        from floatglass.live import validate_receipts
+        from sophia.live import validate_receipts
         good={'observed_at':'2026-10-30T17:58:40Z','retrieved_at':'2026-10-30T17:58:41Z'}
         for bad in ('2099-01-01T00:00:00Z','2020-01-01T00:00:00Z'):
             with self.subTest(bad=bad), self.assertRaises(ValueError):

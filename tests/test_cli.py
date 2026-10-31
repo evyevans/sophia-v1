@@ -9,10 +9,10 @@ import unittest
 from unittest.mock import patch
 from support import AS_OF, snapshot, reseal
 try:
-    from floatglass.report import render_html, write_bundle
+    from sophia.report import render_html, write_bundle
 except ImportError:
     render_html=write_bundle=None
-from floatglass.core import evaluate
+from sophia.core import evaluate
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -42,6 +42,20 @@ class CLITests(unittest.TestCase):
     def call(self,*args):
         return subprocess.run([sys.executable,'-B','-m','floatglass',*map(str,args)],cwd=ROOT,text=True,capture_output=True,timeout=15,
                               env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1'})
+    def test_sophia_and_legacy_commands_produce_matching_results(self):
+        with tempfile.TemporaryDirectory() as a, tempfile.TemporaryDirectory() as b:
+            primary=subprocess.run([sys.executable,'-B','-m','sophia','demo','--output',a],cwd=ROOT,text=True,capture_output=True,timeout=15)
+            legacy=self.call('demo','--output',b)
+            self.assertEqual((primary.returncode,legacy.returncode),(0,0),primary.stderr+legacy.stderr)
+            self.assertEqual(json.loads((Path(a)/'results.json').read_text()),json.loads((Path(b)/'results.json').read_text()))
+            self.assertIn('Sophia Research',(Path(a)/'report.html').read_text())
+
+    def test_legacy_import_resolves_to_primary_module(self):
+        import floatglass.core
+        import sophia.core
+        self.assertIs(floatglass.core, sophia.core)
+        self.assertIs(floatglass.core.evaluate, sophia.core.evaluate)
+
     def test_demo_three_outcomes(self):
         with tempfile.TemporaryDirectory() as td:
             r=self.call('demo','--output',td); self.assertEqual(r.returncode,0,r.stderr)

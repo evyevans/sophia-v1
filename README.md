@@ -6,7 +6,7 @@
 
 Sophia helps you organize observations, ask structured questions and see which evidence is missing before drawing a conclusion. Its Python evaluator produces local HTML and JSON reports with explicit risk checks. It is a research aid, not investment advice.
 
-**Status:** local research edition 0.2.0 · Python 3.11+ · MIT license · optional public BTC/USD data collection. The public-facing name is **Sophia Research**; the current Python package, commands and supporting documents still use **Floatglass Research** and `floatglass`.
+**Status:** local research edition 0.2.0 · Python 3.11+ · MIT license · optional public BTC/USD data collection. The primary Python package and command are named `sophia`. The former `floatglass` command and imports remain available for compatibility.
 
 > **Scope:** No order placement, wallets, simulated trading, portfolio ledger, messaging or automated publishing. The optional Grok Bot workflow is a community package and has not been validated in Grok Bot.
 
@@ -69,7 +69,7 @@ On Windows, use `py -3 --version` and replace `python3` with `py -3` in the exam
 ```sh
 git clone https://github.com/evyevans/irin-crypto-v1.git
 cd irin-crypto-v1
-python3 -m floatglass demo
+python3 -m sophia demo
 ```
 
 Alternatively, download the repository ZIP from GitHub's **Code → Download ZIP**, extract it, open a terminal in the extracted folder and run the final command above.
@@ -109,7 +109,7 @@ Run the demo above and compare its three scenarios. Open `report.html` and locat
 ### 2. Capture a read-only BTC/USD market snapshot
 
 ```sh
-python3 -B -m floatglass collect-btc --output live-output
+python3 -B -m sophia collect-btc --output live-output
 ```
 
 This opts into six public HTTPS GET requests for native BTC/USD metadata, daily candles and order books from Coinbase Exchange and Kraken. It needs internet access but no exchange account or API key. Provider availability, rate limits and regional access can affect the run. The output directory contains:
@@ -123,7 +123,7 @@ A market-only capture remains **BLOCKED**: it does not supply the five required 
 ### 3. Evaluate your own evidence
 
 ```sh
-python3 -m floatglass evaluate examples/synthetic.json --as-of 2026-10-25T00:01:00Z
+python3 -m sophia evaluate examples/synthetic.json --as-of 2026-10-25T00:01:00Z
 ```
 
 This evaluates the supplied example and writes `research-output/report.html` and `research-output/results.json`. For your own research, prepare a snapshot following the [input contract](docs/INPUTS.md), then substitute its path. Supply appropriately dated, source-linked reviews and disclose uncertainty; do not turn missing facts into positive assertions. Omitting `--as-of` uses current UTC. Historical evaluation checks the supplied snapshot at that time; it does not reconstruct historical data.
@@ -132,11 +132,11 @@ This evaluates the supplied example and writes `research-output/report.html` and
 
 | Command | Purpose | Default output |
 | --- | --- | --- |
-| `python3 -m floatglass demo` | Run three offline synthetic scenarios | `demo-output/` |
-| `python3 -m floatglass evaluate PATH` | Evaluate a local JSON snapshot | `research-output/` |
-| `python3 -B -m floatglass collect-btc` | Opt in to public BTC/USD collection and evaluation | `research-output/` |
+| `python3 -m sophia demo` | Run three offline synthetic scenarios | `demo-output/` |
+| `python3 -m sophia evaluate PATH` | Evaluate a local JSON snapshot | `research-output/` |
+| `python3 -B -m sophia collect-btc` | Opt in to public BTC/USD collection and evaluation | `research-output/` |
 
-Each command accepts `--output PATH`. Evaluation also accepts `--as-of UTC_TIMESTAMP`. Use `python3 -m floatglass --help` or a command followed by `--help` for options. No environment variables or credentials are needed for these workflows. A completed evaluation exits **0**, including when the research status is BLOCKED; input or output errors exit **2**. Inspect the status in the report rather than treating exit 0 as a research pass.
+Each command accepts `--output PATH`. Evaluation also accepts `--as-of UTC_TIMESTAMP`. Use `python3 -m sophia --help` or a command followed by `--help` for options. No environment variables or credentials are needed for these workflows. A completed evaluation exits **0**, including when the research status is BLOCKED; input or output errors exit **2**. Inspect the status in the report rather than treating exit 0 as a research pass.
 
 Repeated runs replace the report files in the chosen output directory. Keep separate copies when you need a history; HTML and JSON are each replaced atomically, but the pair is not a transactional store.
 
@@ -154,12 +154,12 @@ Do not fetch live data, install packages, request secrets, connect accounts,
 use wallets, trade, send messages, create routines, or publish content.
 ```
 
-The agent needs an environment with Python and permission to run commands and write local output. For a Grok Bot instance, see [setup and bootstrap](SETUP.md), the [profile](agent/PROFILE.md), and [skill source](skills/floatglass-research/SKILL.md). Actual Grok Bot installation and execution have not been verified; no official affiliation is claimed. Live collection requires a separate explicit choice and network access.
+The agent needs an environment with Python and permission to run commands and write local output. For a Grok Bot instance, see [setup and bootstrap](SETUP.md), the [profile](agent/PROFILE.md), and [skill source](skills/sophia-research/SKILL.md). Actual Grok Bot installation and execution have not been verified; no official affiliation is claimed. Live collection requires a separate explicit choice and network access.
 
 ## Troubleshooting
 
 - **Python not found or too old:** install Python 3.11+ and check `python3 --version` (Windows: `py -3 --version`).
-- **`No module named floatglass`:** change into the extracted or cloned project root before running the command.
+- **`No module named sophia`:** change into the extracted or cloned project root before running the command.
 - **No report or input error:** check the input contract, file path, timestamps and output directory permissions. Malformed input exits 2; no synthetic fallback is substituted.
 - **Live collection fails:** check internet access and public API availability. Review `capture.json` for recorded failures; do not treat missing observations as valid market data.
 - **Report is BLOCKED:** inspect the listed gates and supply genuinely sourced evidence where appropriate. A market-only collection is expected to be blocked.

@@ -35,7 +35,7 @@ def make_manifest(root):
     root=Path(root)
     names=allowed(root)
     hashes={name:sha(root/name) for name in names if name!='RELEASE_FILES.json'}
-    (root/'RELEASE_FILES.json').write_text(json.dumps(dict(schema_version=1,product='Floatglass Research',version='0.2.0',
+    (root/'RELEASE_FILES.json').write_text(json.dumps(dict(schema_version=1,product='Sophia Research',version='0.2.0',
         files=hashes,self_hash_excluded='RELEASE_FILES.json is covered by the archive checksum, not its own hash.'),indent=2,sort_keys=True)+'\n')
 
 def scan_text(body):
@@ -88,7 +88,7 @@ def archive(root,path):
     if issues: raise ValueError('Release check failed: '+','.join(issues))
     with zipfile.ZipFile(path,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as out:
         for name in sorted(allowed(root)):
-            info=zipfile.ZipInfo('floatglass-research/'+name,date_time=(2026,10,30,0,0,0))
+            info=zipfile.ZipInfo('sophia-research/'+name,date_time=(2026,10,30,0,0,0))
             info.compress_type=zipfile.ZIP_DEFLATED; info.external_attr=0o100644<<16
             out.writestr(info,(root/name).read_bytes())
     checksum=sha(path)
@@ -100,7 +100,7 @@ def main():
     p.add_argument('command',choices=['manifest','check','archive'])
     p.add_argument('--root',type=Path,default=ROOT)
     p.add_argument('--private-terms',type=Path,help='External JSON string list, never bundled')
-    p.add_argument('--archive',type=Path,default=ROOT.parent/'floatglass-research-0.2.0.zip')
+    p.add_argument('--archive',type=Path,default=ROOT.parent/'sophia-research-0.2.0.zip')
     args=p.parse_args()
     try:
         if args.command=='manifest': make_manifest(args.root)

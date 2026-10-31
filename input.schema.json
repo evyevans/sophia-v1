@@ -32,7 +32,7 @@
   ],
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Floatglass local crypto evidence snapshot v1",
+  "title": "Sophia local crypto evidence snapshot v1",
   "description": "Structural documentation. Python performs semantic validation; a structurally valid snapshot can be BLOCKED. No external validator dependency is needed.",
   "$defs": {
     "asset": {

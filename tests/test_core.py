@@ -4,7 +4,7 @@ import unittest
 from support import AS_OF, KEY, snapshot, market, review, reseal
 
 try:
-    from floatglass.core import evaluate, InputError
+    from sophia.core import evaluate, InputError
 except ImportError:
     evaluate = None
     class InputError(ValueError): pass

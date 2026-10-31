@@ -3,7 +3,7 @@
 This opt-in feature supersedes v0.1 statements that all data adapters are absent. The deterministic evaluator remains offline; only `collect-btc` performs network reads. There are no credentials, wallet functions, private API routes, orders, messaging or publishing.
 
 ```sh
-python3 -B -m floatglass collect-btc --output live-output
+python3 -B -m sophia collect-btc --output live-output
 ```
 
 Requires Internet access and HTTPS access to Coinbase Exchange and Kraken public APIs. No account/key or runtime packages are needed for these endpoints. Public access remains subject to provider terms, limits and regional availability; it does not grant permission to redistribute market datasets. The captured data stays in the selected local output directory and is excluded from release archives. No commercial analytics or X access is used.

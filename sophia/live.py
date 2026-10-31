@@ -26,7 +26,7 @@ def validate_receipts(receipts):
 
 def fetch_public(name):
     url=URLS[name]  # Exact allowlist; no supplied URLs or authentication headers.
-    request=urllib.request.Request(url,method='GET',headers={'User-Agent':'Floatglass-Research/0.2 public-market-research','Accept':'application/json','Cache-Control':'no-cache'})
+    request=urllib.request.Request(url,method='GET',headers={'User-Agent':'Sophia-Research/0.2 public-market-research','Accept':'application/json','Cache-Control':'no-cache'})
     with urllib.request.build_opener(urllib.request.ProxyHandler({}),NoRedirect()).open(request,timeout=15) as response:
         raw=response.read(4_000_001)
         if len(raw)>4_000_000: raise ValueError('Response too large')

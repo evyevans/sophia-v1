@@ -9,7 +9,7 @@ From this release root:
 ```sh
 python3 -B -m unittest discover -s tests -v
 python3 -B tools/release.py check
-python3 -B tools/release.py archive --archive ../floatglass-research-0.1.0.zip
+python3 -B tools/release.py archive --archive ../sophia-research-0.2.0.zip
 ```
 
 `ALLOWLIST.json` is the explicit list of reviewed distribution files. `RELEASE_FILES.json` hashes every other file, including the allowlist; its own bytes are covered by the ZIP checksum. After intentional content changes, inspect them, run `python3 -B tools/release.py manifest`, then rerun checks. A manifest proves byte identity, not that content is safe or correct.

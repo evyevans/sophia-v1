@@ -18,5 +18,5 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - run: python -B -m unittest discover -s tests -v
-      - run: python -B -m floatglass demo --output "${{ runner.temp }}/floatglass-demo"
+      - run: python -B -m sophia demo --output "${{ runner.temp }}/floatglass-demo"
       - run: python -B tools/release.py check

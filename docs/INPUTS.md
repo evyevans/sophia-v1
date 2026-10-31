@@ -1,6 +1,6 @@
 # Input contract v1
 
-The executable validator is [contracts.py](../floatglass/contracts.py) plus [core.py](../floatglass/core.py). [input.schema.json](../input.schema.json) describes the structural contract; semantic checks (time, prices, lineage and risk) run in Python. The [synthetic example](../examples/synthetic.json) is the complete working shape. This program does not collect or authenticate source data.
+The executable validator is [contracts.py](../sophia/contracts.py) plus [core.py](../sophia/core.py). [input.schema.json](../input.schema.json) describes the structural contract; semantic checks (time, prices, lineage and risk) run in Python. The [synthetic example](../examples/synthetic.json) is the complete working shape. The evaluator does not collect or authenticate source data; the optional BTC collector is described in [LIVE.md](LIVE.md).
 
 ## Root and identity
 
